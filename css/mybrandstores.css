@@ -2710,6 +2710,10 @@ max-width: var(--page-width);
     min-width: 0;
 }
 
+.tech-swipe-indicator {
+    display: none;
+}
+
 .tech-capability-grid,
 .tech-capability-grid.swiper-wrapper {
     display: grid;
@@ -2802,6 +2806,36 @@ max-width: var(--page-width);
 @media (max-width: 700px) {
     .tech-innovation-layout { grid-template-columns: 1fr; }
     .tech-innovation-placeholder { min-height: 280px; }
+    .tech-swipe-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0 auto 10px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, .85);
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .02em;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity .3s ease, transform .3s ease;
+    }
+    .tech-swipe-indicator.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .tech-swipe-indicator svg {
+        width: 15px;
+        height: 15px;
+        animation: tech-swipe-nudge 1s ease-in-out infinite;
+    }
+    @keyframes tech-swipe-nudge {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(4px); }
+    }
     .tech-capability-grid,
     .tech-capability-grid.swiper-wrapper { display: flex; gap: 0; }
     .tech-capability-card { min-height: 142px; padding: 16px 10px; border-radius: 16px; }

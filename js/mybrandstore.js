@@ -78,6 +78,27 @@
 
                 var techCapSwiper = null;
                 var techCapMq = window.matchMedia('(max-width: 700px)');
+                var techSwipeTimer = null;
+                var techSwipeShown = false;
+
+                function showTechSwipeIndicator() {
+                    var indicator = document.querySelector('.tech-swipe-indicator');
+                    if (!indicator || techSwipeShown) return;
+                    techSwipeShown = true;
+                    indicator.classList.add('is-visible');
+                    clearTimeout(techSwipeTimer);
+                    techSwipeTimer = setTimeout(function() {
+                        indicator.classList.remove('is-visible');
+                    }, 3000);
+                }
+
+                function hideTechSwipeIndicator() {
+                    var indicator = document.querySelector('.tech-swipe-indicator');
+                    if (!indicator) return;
+                    clearTimeout(techSwipeTimer);
+                    indicator.classList.remove('is-visible');
+                }
+
                 function syncTechCapSwiper() {
                     if (techCapMq.matches) {
                         if (!techCapSwiper && document.querySelector('.tech-capability-swiper')) {
@@ -88,10 +109,28 @@
                                 a11y: true,
                                 breakpoints: {
                                     480: { slidesPerView: 2.15, spaceBetween: 12 }
+                                },
+                                on: {
+                                    touchStart: hideTechSwipeIndicator,
+                                    slideChange: hideTechSwipeIndicator
                                 }
                             });
+
+                            var techLayout = document.querySelector('.tech-innovation-layout');
+                            if (techLayout && 'IntersectionObserver' in window) {
+                                var obs = new IntersectionObserver(function(entries) {
+                                    if (entries[0].isIntersecting) {
+                                        showTechSwipeIndicator();
+                                        obs.disconnect();
+                                    }
+                                }, { threshold: 0.2 });
+                                obs.observe(techLayout);
+                            } else {
+                                showTechSwipeIndicator();
+                            }
                         }
                     } else if (techCapSwiper) {
+                        hideTechSwipeIndicator();
                         techCapSwiper.destroy(true, true);
                         techCapSwiper = null;
                     }
