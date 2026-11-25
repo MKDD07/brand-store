@@ -1531,7 +1531,6 @@ max-width: var(--page-width);
         #clients.industry-clients {
             position: relative;
             overflow: hidden;
-            padding: 72px 0 84px;
         }
 
         #clients.industry-clients .center h2 {
@@ -1577,7 +1576,6 @@ max-width: var(--page-width);
         }
 
         @media(max-width: 600px) {
-            #clients.industry-clients { padding: 56px 0 60px; }
             #clients.industry-clients .clients { grid-template-columns: none; margin-top: 28px; }
             #clients.industry-clients .cl { height: 64px; }
         }
@@ -1596,7 +1594,6 @@ max-width: var(--page-width);
         #why.why-engage-section {
             position: relative;
             overflow: hidden;
-            padding: clamp(64px, 8vw, 120px) 0 72px;
             background: transparent;
         }
 
@@ -1699,7 +1696,6 @@ max-width: var(--page-width);
         }
 
         @media (max-width: 700px) {
-            #why.why-engage-section { padding: 58px 0 48px; }
             #why.why-engage-section > .container-block > .center { margin-bottom: 26px; }
             #why.why-engage-section .why-impact-card { min-height: 430px; border-radius: 22px; }
             #why.why-engage-section .why-impact-panel { min-height: 160px; padding: 22px; }
