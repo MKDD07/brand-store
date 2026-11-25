@@ -521,15 +521,16 @@
                 var section = document.querySelector('.reward-categories-section');
                 if (!section) return;
 
-                var panels = section.querySelectorAll('.reward-category-panel');
+                var panels = Array.prototype.slice.call(section.querySelectorAll('.reward-category-panel'));
                 var image = section.querySelector('.reward-category-visual-image');
                 var layout = section.querySelector('.reward-categories-layout');
                 var list = section.querySelector('.reward-category-list');
                 var visual = section.querySelector('.reward-category-visual');
+                var heading = section.querySelector('.reward-categories-heading');
                 if (!panels.length || !image || !layout || !list || !visual) return;
 
-                var imageRequests = Object.create(null);
                 var activePanel = null;
+                var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
                 // Preload local category images for instantaneous transitions
                 panels.forEach(function(p) {
@@ -541,56 +542,100 @@
                 });
 
                 function showPanel(panel) {
+                    if (!panel || activePanel === panel) return;
                     activePanel = panel;
+
+                    panels.forEach(function(p) {
+                        p.classList.toggle('is-active', p === panel);
+                    });
+
                     var targetSelector = panel.getAttribute('data-target');
                     var targetImage = targetSelector ? section.querySelector(targetSelector) : image;
                     var title = panel.querySelector('h3');
                     var localImage = panel.getAttribute('data-image');
-                    if (!targetImage) return;
+                    if (!targetImage || !localImage) return;
 
                     if (title) targetImage.setAttribute('alt', title.textContent.trim() + ' rewards');
+                    if (targetImage.getAttribute('src') === localImage) return;
 
-                    function updateImage(newSrc) {
-                        if (!newSrc || activePanel !== panel || targetImage.getAttribute('src') === newSrc) return;
-                        targetImage.classList.add('is-changing');
-                        var showUpdatedImage = function() { targetImage.classList.remove('is-changing'); };
-                        targetImage.onload = showUpdatedImage;
-                        targetImage.onerror = showUpdatedImage;
-                        targetImage.setAttribute('src', newSrc);
-                        if (targetImage.complete) showUpdatedImage();
+                    if (window.gsap && !reducedMotion) {
+                        gsap.killTweensOf(targetImage);
+                        targetImage.classList.remove('is-changing');
+                        targetImage.setAttribute('src', localImage);
+                        gsap.fromTo(
+                            targetImage,
+                            { opacity: 0.25, scale: 0.97, y: 10 },
+                            { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: 'power2.out', overwrite: 'auto' }
+                        );
+                    } else {
+                        targetImage.setAttribute('src', localImage);
                     }
-
-                    if (localImage) updateImage(localImage);
                 }
 
-                var firstPanel = panels[0];
-                if (firstPanel) showPanel(firstPanel);
+                showPanel(panels[0]);
 
-                if (window.gsap && window.ScrollTrigger && window.matchMedia('(min-width: 701px)').matches) {
+                if (window.gsap && window.ScrollTrigger) {
                     gsap.registerPlugin(ScrollTrigger);
 
-                    ScrollTrigger.create({
-                        trigger: layout,
-                        pin: visual,
-                        start: 'top top+=200',
-                        endTrigger: list,
-                        end: 'bottom bottom',
-                        pinSpacing: false,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true
-                    });
+                    if (heading && !reducedMotion) {
+                        gsap.fromTo(
+                            heading,
+                            { y: 24, opacity: 0 },
+                            {
+                                y: 0,
+                                opacity: 1,
+                                duration: 0.7,
+                                ease: 'power3.out',
+                                scrollTrigger: {
+                                    trigger: section,
+                                    start: 'top 82%',
+                                    once: true
+                                }
+                            }
+                        );
+                    }
 
-                    panels.forEach(function(panel) {
+                    var mm = gsap.matchMedia();
+
+                    mm.add('(min-width: 701px)', function() {
                         ScrollTrigger.create({
-                            trigger: panel,
-                            start: 'top center',
-                            end: 'bottom center',
-                            onEnter: function() { showPanel(panel); },
-                            onEnterBack: function() { showPanel(panel); }
+                            trigger: layout,
+                            pin: visual,
+                            start: 'top top+=110',
+                            endTrigger: list,
+                            end: 'bottom bottom',
+                            pinSpacing: false,
+                            anticipatePin: 1,
+                            invalidateOnRefresh: true
+                        });
+
+                        panels.forEach(function(panel) {
+                            ScrollTrigger.create({
+                                trigger: panel,
+                                start: 'top 55%',
+                                end: 'bottom 45%',
+                                onEnter: function() { showPanel(panel); },
+                                onEnterBack: function() { showPanel(panel); }
+                            });
                         });
                     });
 
-                    ScrollTrigger.refresh();
+                    mm.add('(max-width: 700px)', function() {
+                        panels.forEach(function(panel) {
+                            ScrollTrigger.create({
+                                trigger: panel,
+                                start: 'top 62%',
+                                end: 'bottom 38%',
+                                onEnter: function() { showPanel(panel); },
+                                onEnterBack: function() { showPanel(panel); }
+                            });
+                        });
+                    });
+
+                    window.addEventListener('load', function() {
+                        ScrollTrigger.refresh();
+                    }, { once: true });
+
                     return;
                 }
 

@@ -2864,6 +2864,12 @@ max-width: var(--page-width);
     padding: clamp(22px, 4vw, 52px) 0;
     background: transparent;
     color: inherit;
+    opacity: .42;
+    transition: opacity .35s ease, transform .35s ease;
+}
+
+.reward-category-panel.is-active {
+    opacity: 1;
 }
 #reward-categories-title {
     position: relative;
