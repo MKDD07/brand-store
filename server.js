@@ -1,8 +1,11 @@
-const http = require('http');
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
+import http from 'node:http';
+import https from 'node:https';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ROOT_DIR = __dirname;
 const ENV_PATH = path.join(ROOT_DIR, '.env');
 
