@@ -517,7 +517,12 @@
                 gamification: 'assets/img/gamifications.png',
                 chatbot: 'assets/img/chatbot.gif',
                 'instant-wins': 'assets/img/insta_reward.gif',
-                'ar-filters': 'assets/img/iPhone 18 Pro - Burgundy Front.jpg'
+                'ar-filters': 'assets/img/iPhone 18 Pro - Burgundy Front.jpg',
+                'bill-upload': 'assets/img/local/tech-bill-upload.jpg',
+                'qr-code': 'assets/img/local/tech-qr-code.jpg',
+                'lucky-draw': 'assets/img/local/tech-lucky-draw.jpg',
+                'punch-card': 'assets/img/local/tech-punch-card.jpg',
+                'scratch-card': 'assets/img/local/tech-scratch-card.jpg'
             };
 
             function initTechProgrammeSwitcher() {
