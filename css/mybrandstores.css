@@ -876,16 +876,31 @@ max-width: var(--page-width);
             background: var(--sunset)
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 64px
+        .stats-swiper {
+            width: 100%;
+            min-width: 0;
+            margin-top: 64px;
+        }
+
+        .stats,
+        .stats.swiper-wrapper {
+            display: flex;
+            gap: 0;
+        }
+
+        .stat.swiper-slide {
+            height: auto;
         }
 
         @media(min-width:800px) {
-            .stats {
-                grid-template-columns: repeat(4, 1fr)
+            .stats,
+            .stats.swiper-wrapper {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+            .stat.swiper-slide {
+                width: auto;
             }
         }
 

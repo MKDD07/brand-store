@@ -102,6 +102,39 @@
                 } else if (techCapMq.addListener) {
                     techCapMq.addListener(syncTechCapSwiper);
                 }
+
+                var statsSwiper = null;
+                var statsMq = window.matchMedia('(max-width: 799.98px)');
+                function syncStatsSwiper() {
+                    if (statsMq.matches) {
+                        if (!statsSwiper && document.querySelector('.stats-swiper')) {
+                            statsSwiper = new Swiper('.stats-swiper', {
+                                slidesPerView: 1.4,
+                                spaceBetween: 16,
+                                loop: true,
+                                grabCursor: true,
+                                a11y: true,
+                                autoplay: matchMedia('(prefers-reduced-motion:reduce)').matches ? false : {
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                    pauseOnMouseEnter: true
+                                },
+                                breakpoints: {
+                                    480: { slidesPerView: 2.2, spaceBetween: 16 }
+                                }
+                            });
+                        }
+                    } else if (statsSwiper) {
+                        statsSwiper.destroy(true, true);
+                        statsSwiper = null;
+                    }
+                }
+                syncStatsSwiper();
+                if (statsMq.addEventListener) {
+                    statsMq.addEventListener('change', syncStatsSwiper);
+                } else if (statsMq.addListener) {
+                    statsMq.addListener(syncStatsSwiper);
+                }
             }
             if (!ok) {
                 els.forEach(function(e) {
