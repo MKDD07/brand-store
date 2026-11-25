@@ -58,7 +58,7 @@
             --rounded-card: 20px;
             --rounded-button: 100px;
             --rounded-input: 12px;
-            --section-space: 120px;
+            --section-space: 72px;
             --section-space-mobile: 72px;
             --transition-fast: .25s ease;
             --transition-smooth: .6s cubic-bezier(.22, 1, .36, 1);
@@ -2731,6 +2731,7 @@ max-width: var(--page-width);
     align-items: center;
     justify-content: center;
     gap: 14px;
+    margin: 4px;
     padding: 36px 32px;
     border: 1px solid rgba(15, 23, 42, .1);
     border-radius: 20px;
@@ -2858,24 +2859,32 @@ max-width: var(--page-width);
 
 .reward-categories-layout {
     display: grid;
-    grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
-    gap: clamp(28px, 5vw, 76px);
+    grid-template-columns: minmax(0, .95fr) minmax(340px, 1.05fr);
+    gap: clamp(24px, 4vw, 56px);
     align-items: start;
     overflow: visible !important;
 }
 
 .reward-categories-layout > .pin-spacer {
     justify-self: center;
-    align-self: center;
+    align-self: start;
+    width: 100% !important;
 }
 
 .reward-categories-layout > .pin-spacer > .reward-category-visual {
     margin-inline: auto;
+    width: 100%;
 }
 
 .reward-categories-section > .container-block,
 .reward-category-list {
     overflow: visible !important;
+}
+
+.reward-category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .reward-categories-section > .container-block {
@@ -2885,16 +2894,26 @@ max-width: var(--page-width);
 
 .reward-category-panel {
     display: flex;
-    min-height: 72vh;
-    padding: clamp(22px, 4vw, 52px) 0;
-    background: transparent;
+    min-height: 0;
+    padding: 20px 24px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .04);
     color: inherit;
-    opacity: .42;
-    transition: opacity .35s ease, transform .35s ease;
+    opacity: .62;
+    cursor: pointer;
+    transition: opacity .28s ease, background-color .28s ease, border-color .28s ease, transform .28s ease;
+}
+
+.reward-category-panel:hover {
+    opacity: .88;
+    background: rgba(255, 255, 255, .08);
 }
 
 .reward-category-panel.is-active {
     opacity: 1;
+    border-color: rgba(255, 255, 255, .36);
+    background: rgba(255, 255, 255, .12);
 }
 #reward-categories-title {
     position: relative;
@@ -2946,12 +2965,21 @@ max-width: var(--page-width);
     flex-direction: column;
     justify-content: center;
     max-width: 620px;
-    margin-inline: auto;
-    gap: 36px;
+    width: 100%;
+    gap: 8px;
+}
+
+.reward-category-copy h3 {
+    margin: 0;
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
 }
 
 .reward-category-copy p {
+    margin: 0;
     max-width: 58ch;
+    font-size: .95rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, .82);
 }
 
 .reward-category-visual {
@@ -2959,14 +2987,15 @@ max-width: var(--page-width);
     top: auto;
     align-self: start;
     display: flex;
-    height: min(calc(100vh - 136px), 720px);
-    min-height: 420px;
+    width: 100%;
+    height: auto;
+    min-height: 0;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 22px;
+    justify-content: flex-start;
+    gap: 16px;
     overflow: visible;
-    padding: clamp(24px, 4vw, 56px);
+    padding: 0;
     border-radius: 0;
     background: transparent;
     color: #FFFFFF;
@@ -2975,10 +3004,11 @@ max-width: var(--page-width);
 .reward-category-visual-image {
     display: block;
     width: 100%;
-    border-radius: 24px;
+    max-height: min(calc(100vh - 150px), 560px);
+    border-radius: 22px;
     height: auto;
     object-fit: cover;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
     opacity: 1;
     transition: opacity .25s ease, transform .35s ease;
     box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.45);
@@ -2992,29 +3022,31 @@ max-width: var(--page-width);
 @media (max-width: 700px) {
     .reward-categories-layout {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .reward-category-panel {
-        min-height: 52vh;
-        padding-block: 28px;
+        min-height: 0;
+        padding: 16px 18px;
     }
 
     .reward-category-visual {
         position: sticky;
-        top: 72px;
+        top: calc(var(--header-h-scrolled) + 10px);
         z-index: 10;
         order: -1;
         height: auto;
-        min-height: 240px;
-        padding: 16px;
+        min-height: 0;
+        padding: 10px;
         border-radius: 20px;
+        background: rgba(13, 63, 118, .92);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
     }
 
     .reward-category-visual-image {
-        max-height: 280px;
-        aspect-ratio: 16 / 10;
+        max-height: 220px;
+        aspect-ratio: 16 / 9;
     }
 }
 

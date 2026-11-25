@@ -634,6 +634,18 @@
 
                 showPanel(panels[0]);
 
+                // Allow clicking or focusing any category card to preview it immediately
+                panels.forEach(function(panel) {
+                    panel.setAttribute('tabindex', '0');
+                    panel.addEventListener('click', function() { showPanel(panel); });
+                    panel.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            showPanel(panel);
+                        }
+                    });
+                });
+
                 if (window.gsap && window.ScrollTrigger) {
                     gsap.registerPlugin(ScrollTrigger);
 
@@ -655,13 +667,35 @@
                         );
                     }
 
+                    if (!reducedMotion) {
+                        gsap.fromTo(
+                            panels,
+                            { y: 22, opacity: 0 },
+                            {
+                                y: 0,
+                                opacity: function(i, el) {
+                                    return el.classList.contains('is-active') ? 1 : 0.62;
+                                },
+                                duration: 0.55,
+                                stagger: 0.06,
+                                ease: 'power2.out',
+                                clearProps: 'opacity,transform',
+                                scrollTrigger: {
+                                    trigger: list,
+                                    start: 'top 82%',
+                                    once: true
+                                }
+                            }
+                        );
+                    }
+
                     var mm = gsap.matchMedia();
 
                     mm.add('(min-width: 701px)', function() {
                         ScrollTrigger.create({
                             trigger: layout,
                             pin: visual,
-                            start: 'top top+=110',
+                            start: 'top top+=112',
                             endTrigger: list,
                             end: 'bottom bottom',
                             pinSpacing: false,
@@ -672,8 +706,8 @@
                         panels.forEach(function(panel) {
                             ScrollTrigger.create({
                                 trigger: panel,
-                                start: 'top 55%',
-                                end: 'bottom 45%',
+                                start: 'top 48%',
+                                end: 'bottom 48%',
                                 onEnter: function() { showPanel(panel); },
                                 onEnterBack: function() { showPanel(panel); }
                             });
