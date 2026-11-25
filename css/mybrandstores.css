@@ -3028,8 +3028,6 @@ max-width: var(--page-width);
 .journey-section {
     position: relative;
     overflow: hidden;
-    padding-top: var(--section-space, 60px);
-    padding-bottom: var(--section-space, 60px);
 }
 
 .journey-section-lead {
