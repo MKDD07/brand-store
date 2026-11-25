@@ -58,6 +58,23 @@
                         1200: { slidesPerView: 6, spaceBetween: 28 }
                     }
                 })
+                new Swiper('.why-swiper', {
+                    slidesPerView: 1.15,
+                    spaceBetween: 16,
+                    grabCursor: true,
+                    watchOverflow: true,
+                    a11y: true,
+                    autoplay: matchMedia('(prefers-reduced-motion:reduce)').matches ? false : {
+                        delay: 4000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true
+                    },
+                    breakpoints: {
+                        600: { slidesPerView: 2, spaceBetween: 16 },
+                        900: { slidesPerView: 3, spaceBetween: 20 },
+                        1200: { slidesPerView: 4, spaceBetween: 24 }
+                    }
+                })
             }
             if (!ok) {
                 els.forEach(function(e) {

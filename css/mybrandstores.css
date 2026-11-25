@@ -542,7 +542,7 @@ max-width: var(--page-width);
         }
 
         .logo-img {
-            height: 60px;
+            height: 48px;
             width: auto;
             display: block
         }
@@ -1603,9 +1603,13 @@ max-width: var(--page-width);
         }
 
         #why.why-engage-section .why-impact-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 24px;
+            display: flex;
+            gap: 0;
+        }
+
+        #why.why-engage-section .why-impact-card.swiper-slide {
+            display: flex;
+            height: auto;
         }
 
         #why.why-engage-section .why-impact-card {
@@ -1682,14 +1686,12 @@ max-width: var(--page-width);
         @media (max-width: 700px) {
             #why.why-engage-section { padding: 58px 0 48px; }
             #why.why-engage-section > .container-block > .center { margin-bottom: 26px; }
-            #why.why-engage-section .why-impact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
             #why.why-engage-section .why-impact-card { min-height: 430px; border-radius: 22px; }
             #why.why-engage-section .why-impact-panel { min-height: 160px; padding: 22px; }
             #why.why-engage-section .why-impact-label { top: 18px; left: 18px; }
         }
 
         @media (max-width: 480px) {
-            #why.why-engage-section .why-impact-grid { grid-template-columns: 1fr; }
             #why.why-engage-section .why-impact-card { min-height: 460px; }
         }
 
