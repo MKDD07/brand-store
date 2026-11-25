@@ -896,7 +896,7 @@ max-width: var(--page-width);
 
         .stat b {
             display: block;
-            font-size: 32px;
+            font-size: clamp(20px, 2.2vw, 24px);
             letter-spacing: -.03em;
             color: var(--primary-color)
         }
