@@ -3660,12 +3660,13 @@ max-width: var(--page-width);
     }
 }
 
-/* Hide section pill badges on mobile */
+/* Hide section pill badges and secondary outline button on mobile */
 @media (max-width: 767.98px) {
     .eyebrow,
     #why.why-engage-section > .container-block > .center .eyebrow,
     .reward-categories-section .eyebrow,
-    .cta-badge {
+    .cta-badge,
+    .btn.btn-o {
         display: none !important;
     }
 }
