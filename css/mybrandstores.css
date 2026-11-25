@@ -3639,3 +3639,13 @@ max-width: var(--page-width);
         transition: none;
     }
 }
+
+/* Hide section pill badges on mobile */
+@media (max-width: 767.98px) {
+    .eyebrow,
+    #why.why-engage-section > .container-block > .center .eyebrow,
+    .reward-categories-section .eyebrow,
+    .cta-badge {
+        display: none !important;
+    }
+}
