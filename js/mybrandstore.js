@@ -75,6 +75,33 @@
                         1200: { slidesPerView: 4, spaceBetween: 24 }
                     }
                 })
+
+                var techCapSwiper = null;
+                var techCapMq = window.matchMedia('(max-width: 700px)');
+                function syncTechCapSwiper() {
+                    if (techCapMq.matches) {
+                        if (!techCapSwiper && document.querySelector('.tech-capability-swiper')) {
+                            techCapSwiper = new Swiper('.tech-capability-swiper', {
+                                slidesPerView: 1.35,
+                                spaceBetween: 12,
+                                grabCursor: true,
+                                a11y: true,
+                                breakpoints: {
+                                    480: { slidesPerView: 2.15, spaceBetween: 12 }
+                                }
+                            });
+                        }
+                    } else if (techCapSwiper) {
+                        techCapSwiper.destroy(true, true);
+                        techCapSwiper = null;
+                    }
+                }
+                syncTechCapSwiper();
+                if (techCapMq.addEventListener) {
+                    techCapMq.addEventListener('change', syncTechCapSwiper);
+                } else if (techCapMq.addListener) {
+                    techCapMq.addListener(syncTechCapSwiper);
+                }
             }
             if (!ok) {
                 els.forEach(function(e) {

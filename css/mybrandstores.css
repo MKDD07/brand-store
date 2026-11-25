@@ -2694,10 +2694,22 @@ max-width: var(--page-width);
     background-size: contain;
 }
 
-.tech-capability-grid {
+.tech-capability-swiper {
+    width: 100%;
+    min-width: 0;
+}
+
+.tech-capability-grid,
+.tech-capability-grid.swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
+}
+
+.tech-capability-card.swiper-slide {
+    display: flex;
+    width: auto;
+    height: auto;
 }
 
 .tech-capability-card {
@@ -2771,13 +2783,15 @@ max-width: var(--page-width);
 
 @media (max-width: 1100px) {
     .tech-innovation-layout { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
-    .tech-capability-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tech-capability-grid,
+    .tech-capability-grid.swiper-wrapper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 700px) {
     .tech-innovation-layout { grid-template-columns: 1fr; }
     .tech-innovation-placeholder { min-height: 280px; }
-    .tech-capability-grid { gap: 12px; }
+    .tech-capability-grid,
+    .tech-capability-grid.swiper-wrapper { display: flex; gap: 0; }
     .tech-capability-card { min-height: 142px; padding: 16px 10px; border-radius: 16px; }
     .tech-capability-icon { width: 52px; height: 52px; flex-basis: 52px; border-radius: 15px; }
     .tech-capability-icon svg { width: 27px; height: 27px; }
